@@ -1,0 +1,114 @@
+package java.common;
+
+import java.sql.*;
+
+/**
+ * @Author: zengbingqing
+ * @Description: 数据库连接类
+ *  // MySQL 8.0 以下版本 - JDBC 驱动名及数据库 URL
+ *   static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+ *    static final String DB_URL = "jdbc:mysql://localhost:3306/RUNOOB";
+ * @Date: 2019/11/29
+**/
+public class DBUtils {
+
+    private static Connection conn = getConn();
+
+    public static Connection getConnectionInstance(){
+        return conn;
+    }
+
+    /**
+     * @Author: zengbingqing
+     * @Description:
+     * @Date: 2019/11/19
+    **/
+    public static Connection getConn(){
+        try {
+            if (conn != null) return conn;
+            String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
+            // MySQL 8.0 以上版本 - JDBC 驱动名及数据库 URL
+            String DB_URL = "jdbc:mysql://localhost:3306/zbqdb?useSSL=false&serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8";
+            // 数据库的用户名与密码，需要根据自己的设置
+            String USER = "root";
+            String PASS = "123456";
+            // 注册 JDBC 驱动
+            Class.forName(JDBC_DRIVER);
+            // 打开链接
+            System.out.println("连接数据库...");
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return conn;
+    }
+
+    /**
+     * @Author: zengbingqing
+     * @Description: 连接释放
+     * @Date: 2019/11/29
+    **/
+    public static void releaseSource(Connection conn,Statement st,ResultSet rst) {
+        try {
+            if (rst != null) rst.close();
+            if (st != null) st.close();
+            if (conn != null) conn.close();
+        }catch (SQLException e){
+            e.getStackTrace();
+        }
+
+    }
+
+    //test
+    public static void main(String[] args) {
+        Connection conn = null;
+        Statement stmt = null;
+        try{
+            conn = getConn();
+            // 打开链接
+            System.out.println("连接数据库...");
+            // 执行查询
+            System.out.println(" 实例化Statement对象...");
+            stmt = conn.createStatement();
+            String sql;
+            sql = "SELECT id, name, book FROM zbqinfotb";
+            ResultSet rs = stmt.executeQuery(sql);
+            // 展开结果集数据库
+            while(rs.next()){
+                // 通过字段检索
+                String id  = rs.getString("id");
+                String name = rs.getString("name");
+                String book = rs.getString("book");
+
+                // 输出数据
+                System.out.print("ID: " + id);
+                System.out.print(", 站点名称: " + name);
+                System.out.print(", 站点 URL: " + book);
+                System.out.print("\n");
+            }
+            // 完成后关闭
+            rs.close();
+            stmt.close();
+            conn.close();
+        }catch(SQLException se){
+            // 处理 JDBC 错误
+            se.printStackTrace();
+        }catch(Exception e){
+            // 处理 Class.forName 错误
+            e.printStackTrace();
+        }finally{
+            // 关闭资源
+            try{
+                if(stmt!=null) stmt.close();
+            }catch(SQLException se2){
+            }// 什么都不做
+            try{
+                if(conn!=null) conn.close();
+            }catch(SQLException se){
+                se.printStackTrace();
+            }
+        }
+        System.out.println("Goodbye!");
+    }
+
+}
