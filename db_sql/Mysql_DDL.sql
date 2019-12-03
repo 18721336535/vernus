@@ -24,8 +24,9 @@ create  index facture_name_index on Wset_Weight(facture_name);
 drop table if exists ly_fv_matrix;
 create table ly_fv_matrix(
    id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+   ly_id int,
    ly_fv text  default '',
-   ly_fv_name VARCHAR(1024)  default '',
+   ly_fv_wset VARCHAR(1024)  default '',
    score DOUBLE default 0,
    status varchar(1) default '0',
    create_by VARCHAR(32) NOT NULL DEFAULT 'ADMIN',
@@ -40,8 +41,10 @@ create table ly_fv_matrix(
 drop table if exists zs_fv_matrix;
 create table zs_fv_matrix(
    id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+   zs_id int,
+   ly_id int,
    zs_fv text  default '',
-   zs_fv_name VARCHAR(1024)  default '',
+   zs_fv_wset VARCHAR(1024)  default '',
    score DOUBLE default 0,
    status varchar(1) default '0',
    create_by VARCHAR(32) NOT NULL DEFAULT 'ADMIN',
