@@ -1,4 +1,4 @@
-package java.common;
+package code.commons;
 
 import java.sql.*;
 

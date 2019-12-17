@@ -12,7 +12,7 @@ create table Wset_Weight(
     facture_name VARCHAR(32)  default '',
     wscore DOUBLE default 0,
     create_by VARCHAR(32) NOT NULL DEFAULT 'ADMIN',
-    create_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间'
+    create_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     update_by VARCHAR(32) NOT NULL DEFAULT 'ADMIN',
     update_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间'
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -25,7 +25,7 @@ drop table if exists ly_fv_matrix;
 create table ly_fv_matrix(
    id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
    ly_id int,
-   ly_fv text  default '',
+   ly_fv text,
    ly_fv_wset VARCHAR(1024)  default '',
    score DOUBLE default 0,
    status varchar(1) default '0',
@@ -43,12 +43,12 @@ create table zs_fv_matrix(
    id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
    zs_id int,
    ly_id int,
-   zs_fv text  default '',
+   zs_fv text,
    zs_fv_wset VARCHAR(1024)  default '',
    score DOUBLE default 0,
    status varchar(1) default '0',
    create_by VARCHAR(32) NOT NULL DEFAULT 'ADMIN',
-   create_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间'
+   create_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
    update_by VARCHAR(32) NOT NULL DEFAULT 'ADMIN',
    update_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间'
   )ENGINE=InnoDB DEFAULT CHARSET=utf8;
