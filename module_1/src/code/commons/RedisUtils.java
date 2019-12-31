@@ -80,7 +80,7 @@ public class RedisUtils {
      * @Description:
      * @Date: 2019/11/19
      **/
-    public static Map<String,String> getHashMap(String key, HashMap<String,String> map){
+    public static Map<String,String> getHashMap(String key){
         Jedis jedis = getJedisInstance();
         jedis.select(0);
         return jedis.hgetAll(key);

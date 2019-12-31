@@ -16,7 +16,7 @@ public class DataHandleCore {
 
     /**
      * @Author: zengbingqing
-     * @Description: 获取一列的词集
+     * @Description: 获取列的词集
      * @Date: 2019/12/3
     **/
     public Set<String> getDtaBy_F_Ly(String sql, String cloumName, Connection conn , Statement stm){
