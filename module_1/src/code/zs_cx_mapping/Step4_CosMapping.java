@@ -1,8 +1,6 @@
 package code.zs_cx_mapping;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Step4_CosMapping {
     Map<String, List<String>> preMap = new HashMap<String,List<String>>();
@@ -11,7 +9,30 @@ public class Step4_CosMapping {
 
     }
 
-    public void mappingEntry(){
+    public void mappingEntry(Map<String, Set<String>> idMap){
+        Double[] zsfv= null;
+        Double[] cxfv= null;
+        double score= 0d;
+        double scoreTemp= 0d;
+        Map<String,Double> recordMap = new HashMap<String,Double>();
+        Set<String> backupSet = new HashSet<String>();
+        for(String zsId :idMap.keySet()){
+            // 根据zsId，获取zs特征向量 array Double[]
+
+            for(String cxId:idMap.get(zsId)){
+                // 根据cxId，获取cx特征向量 array Double[]
+                scoreTemp = cosMath(zsfv,cxfv);
+                recordMap.put(cxId,scoreTemp);
+                if(scoreTemp > score) score = scoreTemp;
+            }
+
+            for(Map.Entry<String, Double> en:recordMap.entrySet()){
+                if(en.getValue() == score) backupSet.add(en.getKey());
+            }
+
+            //update table zsId-cxId status and score
+
+        }
 
 
     }
